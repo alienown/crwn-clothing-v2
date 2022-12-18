@@ -68,7 +68,6 @@ const SignUpForm = () => {
           value={displayName}
         />
 
-        <label>Email</label>
         <FormInput
           label="Email"
           type="email"
@@ -78,7 +77,6 @@ const SignUpForm = () => {
           value={email}
         />
 
-        <label>Password</label>
         <FormInput
           label="Password"
           type="password"
@@ -88,7 +86,6 @@ const SignUpForm = () => {
           value={password}
         />
 
-        <label>Confirm Password</label>
         <FormInput
           label="Confirm Password"
           type="password"
@@ -98,7 +95,7 @@ const SignUpForm = () => {
           value={confirmPassword}
         />
 
-        <Button type="submit">Sign Up</Button>
+        <Button type="submit">Sign up</Button>
       </form>
     </div>
   );
