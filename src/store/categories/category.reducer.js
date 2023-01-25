@@ -6,9 +6,10 @@ const INITIAL_STATE = {
 
 export const categoriesReducer = (state = INITIAL_STATE, action = {}) => {
   const { type, payload } = action;
-
+  console.log('categoriesReducerFired');
   switch (type) {
     case CATEGORIES_ACTION_TYPE.SET_CATEGORIES:
+      console.log('CATEGORIES_ACTION_TYPE.SET_CATEGORIES');
       return {
         ...state,
         categories: payload,
