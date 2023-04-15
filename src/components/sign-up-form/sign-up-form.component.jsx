@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import {
-  createAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
-} from '../../utils/firebase/firebase.utils';
+import { useDispatch } from 'react-redux';
+import { signUpStart } from '../../store/user/user.action';
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button-component';
 import { SignUpContainer } from './sign-up-form.styles';
@@ -15,6 +13,7 @@ const defaultFormFields = {
 };
 
 const SignUpForm = () => {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -29,17 +28,12 @@ const SignUpForm = () => {
       alert('passwords do not match');
       return;
     }
-    
-    try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
 
-      await createUserDocumentFromAuth(user, { displayName });
+    try {
+      dispatch(signUpStart(email, password, displayName));
 
       resetFormFields();
-    } catch (err) {
+    } catch (err) { // this try catch is not needed anymore as dispatch won't throw error here, we'd have to check error from user state
       if (err.code === 'auth/email-already-in-use') {
         alert('Cannot create user, email already in use');
       } else {

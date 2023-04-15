@@ -46,7 +46,10 @@ export const signInWithGoogleRedirect = () =>
 
 export const db = getFirestore();
 
-export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
 
@@ -63,7 +66,7 @@ export const getCategoriesAndDocuments = async () => {
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map(docSnapshot => docSnapshot.data());
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 
   // const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
   //   const { title, items } = docSnapshot.data();
@@ -83,23 +86,27 @@ export const createUserDocumentFromAuth = async (
   }
 
   const userDocRef = doc(db, 'users', userAuth.uid);
-  const userSnapshot = await getDoc(userDocRef);
+  let userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
-    const { displayName, email } = userAuth;
+    const { email } = userAuth;
     const createdAt = new Date();
 
     try {
       await setDoc(userDocRef, {
-        displayName,
         email,
         createdAt,
         ...additionalInformation,
       });
+
+      // update userSnapshot if user is created
+      userSnapshot = await getDoc(userDocRef);
     } catch (error) {
       console.log('error creating the user:', error.message);
     }
   }
+
+  return userSnapshot;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -122,3 +129,16 @@ export const signOutUser = async () => signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
+};
