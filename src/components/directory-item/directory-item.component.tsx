@@ -4,8 +4,13 @@ import {
   BackgroundImage,
   Body,
 } from './directory-item.styles';
+import { DirectoryCategory } from '../directory/directory.component';
 
-const DirectoryItem = ({ category }) => {
+export type DirectoryItemProps = {
+  category: DirectoryCategory;
+};
+
+const DirectoryItem = ({ category }: DirectoryItemProps) => {
   const { imageUrl, title, route } = category;
   const navigate = useNavigate();
 

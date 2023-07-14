@@ -1,3 +1,4 @@
+import { CategoryItem } from '../../store/categories/category.types';
 import ProductCard from '../product-card/product-card.component';
 import {
   CategoryPreviewContainer,
@@ -5,13 +6,16 @@ import {
   Preview,
 } from './category-preview.styles';
 
-const CategoryPreview = ({ title, products }) => {
+export type CategoryPreviewProps = {
+  title: string;
+  products: CategoryItem[];
+};
+
+const CategoryPreview = ({ title, products }: CategoryPreviewProps) => {
   return (
     <CategoryPreviewContainer>
       <h2>
-        <Title to={title}>
-          {title.toUpperCase()}
-        </Title>
+        <Title to={title}>{title.toUpperCase()}</Title>
       </h2>
       <Preview>
         {products
