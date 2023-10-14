@@ -8,7 +8,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { persistor, store } from './store/store';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import './index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
