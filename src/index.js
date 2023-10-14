@@ -7,6 +7,7 @@ import { stripePromise } from './utils/stripe/stripe.utils';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { persistor, store } from './store/store';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import './index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -28,3 +29,5 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+serviceWorkerRegistration.register();
