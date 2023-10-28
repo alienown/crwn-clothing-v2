@@ -20,11 +20,16 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.base): typeof BaseButton =>
   }[buttonType]);
 
 export type ButtonProps = {
-  buttonType?: BUTTON_TYPE_CLASSES,
+  buttonType?: BUTTON_TYPE_CLASSES;
   isLoading?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button: FC<ButtonProps> = ({ children, buttonType, isLoading, ...otherProps }) => {
+const Button: FC<ButtonProps> = ({
+  children,
+  buttonType,
+  isLoading,
+  ...otherProps
+}) => {
   const CustomButton = getButton(buttonType);
 
   return (

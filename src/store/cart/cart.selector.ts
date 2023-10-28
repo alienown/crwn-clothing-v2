@@ -5,10 +5,10 @@ import { CartItem } from './cart.types';
 
 const selectCartReducer = (state: RootState): CartState => state.cart;
 
-export const selectCartItems = createSelector(
-  [selectCartReducer],
-  (cart) => cart.cartItems
-);
+export const selectCartItems = createSelector([selectCartReducer], (cart) => {
+  console.log(cart);
+  return cart.cartItems;
+});
 
 export const selectIsCartOpen = createSelector(
   [selectCartReducer],
